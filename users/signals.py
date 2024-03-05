@@ -1,14 +1,11 @@
-from pathlib import Path
 from django.db.models.signals import post_save, pre_delete
 from django.contrib.auth.models import User
 from django.dispatch import receiver
-from django.conf import settings
-
 from .models import Profile
 
 
 @receiver(post_save, sender=User)
-def create_profile(sender, instance, created, **kwargs):
+def create_profile(instance, created):
     if created:
         try:
             Profile.objects.create(user=instance)
@@ -16,7 +13,7 @@ def create_profile(sender, instance, created, **kwargs):
             ...
 
 @receiver(post_save, sender=User)
-def save_profile(sender, instance, **kwargs):
+def save_profile(instance):
     try:
         instance.profile.save()
     except:
@@ -26,7 +23,6 @@ def save_profile(sender, instance, **kwargs):
 def delete_avatar(sender, instance, **kwargs):
     try:
         avatar = instance.profile.avatar
-        # mroot = settings.MEDIA_ROOT
         field = Profile._meta.get_field('avatar')
         default_value = field.get_default()
         print("**********  delete_avatar", avatar.name, avatar.path, default_value)
@@ -34,4 +30,3 @@ def delete_avatar(sender, instance, **kwargs):
             avatar.delete(save=False)
     except:
         ...
-

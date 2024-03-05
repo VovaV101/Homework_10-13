@@ -4,7 +4,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.contrib import messages
-from django.contrib.auth.models import User
 
 from .models import Quote, Author, Tag
 
@@ -148,5 +147,3 @@ class AddTagView(LoginRequiredMixin, View):
         else:
             messages.error(request, "Not added...")
             return render(request, self.template_name, context={"form": form})
-
-

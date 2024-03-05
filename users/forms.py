@@ -102,4 +102,3 @@ class DeleteForm(forms.ModelForm):
         fields = [
             "username",
         ]
-

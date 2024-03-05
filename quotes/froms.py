@@ -1,13 +1,6 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 from .models import Author, Quote, Tag
-
-# fullname = models.CharField(max_length=120)
-# born_date = models.CharField(max_length=50)
-# born_location = models.CharField(max_length=120)
-# description = models.TextField()
-# created_at = models.DateTimeField(auto_now_add=True)
 
 
 class AuthorForm(forms.ModelForm):
